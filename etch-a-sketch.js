@@ -2,38 +2,45 @@ const gridContainer = document.querySelector('#grid-container');
 const sliderContainer = document.querySelector('#slider-container');
 const gridSize = document.querySelector('#grid-size');
 const slider = document.querySelector('#myRange');
-
 const root = document.querySelector(':root');
-const rootStyles = getComputedStyle(root);
-root.style.setProperty('--rows',getSliderValue());
-root.style.setProperty('--columns',getSliderValue());
-
-slider.addEventListener('click', () => {createGridSquares(getSliderValue(), getSliderValue())});
 
 createGridSquares(16,16);
+equipEventListeners();
+
+
+slider.addEventListener('click', () => {
+    createGridSquares(getSliderValue(), getSliderValue());
+    equipEventListeners();
+})
+
+
+
+
+
 function createGridSquares (rows, columns) {
-    for(let i = 0; i < (rows*columns); i++) {
+    for (let i = 0; i < (rows*columns); i++) {
         const gridSquares = document.createElement('div');
-        gridSquares.classList.toggle('blank-square');
+        gridSquares.classList.add('blank-square');
         gridContainer.appendChild(gridSquares);
     }
+    root.style.setProperty('--rows', rows);
+    root.style.setProperty('--columns', columns);
 }
 
-
-const gridSquares = document.querySelectorAll('.blank-square');
-
-gridSquares.forEach((square) => equipEventListeners(square));
+function equipEventListeners () {
+    const gridSquares = document.querySelectorAll('#grid-container div');
+    gridSquares.forEach((square) => {
+        square.classList.remove('black-square')
+        square.addEventListener('mousedown', () => colorSquare);
+        square.addEventListener('mouseover', (e) => {
+            if (e.buttons === 1) colorSquare(square);
+            })
+    })
+}
 
 function colorSquare (square) {
     square.classList.remove('blank-square');
     square.classList.add('black-square');
-}
-
-function equipEventListeners (square) {
-    square.addEventListener('mousedown', () => colorSquare)
-    square.addEventListener('mouseover', (e) => {
-        if (e.buttons === 1) colorSquare(square);
-    })
 }
 
 function getSliderValue () {
