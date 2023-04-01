@@ -3,24 +3,37 @@ const sliderContainer = document.querySelector('#slider-container');
 const gridSize = document.querySelector('#grid-size');
 const slider = document.querySelector('#myRange');
 const root = document.querySelector(':root');
+const blackButton = document.querySelector('#black-button')
+const rainbowButton = document.querySelector('#rainbow-button')
+const clearButton = document.querySelector('#clear-button')
 
 createGridSquares(16,16);
 equipEventListeners();
 
+clearButton.addEventListener('click', () => clearSketch());
+
+let rainbowButtonClicked = false;
+let blackButtonClicked = false;
+
+blackButton.addEventListener('click', () => {
+    blackButtonClicked = true;
+    rainbowButtonClicked = false;
+})
+
+rainbowButton.addEventListener('click', () => {
+    rainbowButtonClicked = true;
+    blackButtonClicked = false;
+})
 
 slider.addEventListener('click', () => {
     createGridSquares(getSliderValue(), getSliderValue());
     equipEventListeners();
+    clearSketch();
 })
-
-
-
-
 
 function createGridSquares (rows, columns) {
     for (let i = 0; i < (rows*columns); i++) {
         const gridSquares = document.createElement('div');
-        gridSquares.classList.add('blank-square');
         gridContainer.appendChild(gridSquares);
     }
     root.style.setProperty('--rows', rows);
@@ -30,7 +43,6 @@ function createGridSquares (rows, columns) {
 function equipEventListeners () {
     const gridSquares = document.querySelectorAll('#grid-container div');
     gridSquares.forEach((square) => {
-        square.classList.remove('black-square')
         square.addEventListener('mousedown', () => colorSquare);
         square.addEventListener('mouseover', (e) => {
             if (e.buttons === 1) colorSquare(square);
@@ -39,8 +51,15 @@ function equipEventListeners () {
 }
 
 function colorSquare (square) {
-    square.classList.remove('blank-square');
-    square.classList.add('black-square');
+    if (rainbowButtonClicked === true) {
+        const randomR = Math.floor(Math.random() * 256);
+        const randomG = Math.floor(Math.random() * 256);
+        const randomB = Math.floor(Math.random() * 256);
+        square.style.backgroundColor = `rgb(${randomR}, ${randomG}, ${randomB})`;
+    }
+    else {
+        square.style.backgroundColor = 'black';
+    }
 }
 
 function getSliderValue () {
@@ -50,3 +69,9 @@ function getSliderValue () {
     return sliderValue;
 }
 
+function clearSketch () {
+    const gridSquares = document.querySelectorAll('#grid-container div');
+    gridSquares.forEach((square) => {
+        square.style.backgroundColor = 'white';
+    })   
+}

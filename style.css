@@ -17,7 +17,3 @@ body {
     grid-template-rows: repeat(var(--rows), 1fr);
     grid-template-columns: repeat(var(--columns), 1fr);
 }
-
-.black-square {
-    background-color: black;
-}
