@@ -5,19 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etch-A-Sketch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="etch-a-sketch.js" defer></script>
 </head>
 <body>
-    <div id="grid-container"></div>
-    <div id="slider-container">
-        <input type="range" min="1" max="64" value="16" class="slider" id="myRange">
-        <div id="grid-size">16 x 16</div>
+    <div id="content">
+        <div id="left-container">
+            <h1 id="header">Etch-A-Sketch</h1>
+            <div id="grid-container"></div>
+        </div>
+        <div id="right-container">
+            <div id="options-container">
+                <div id="slider-container">
+                    <div id="grid-size">16 x 16</div>
+                    <input type="range" min="1" max="64" value="16" class="slider" id="myRange">
+                </div>
+                <div id="button-container">
+                    <button id="black-button">Black Mode</button>
+                    <button id="rainbow-button">Rainbow Mode</button>
+                    <button id="clear-button">Clear</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="button-container">
-        <button id="black-button">Black Mode</button>
-        <button id="rainbow-button">Rainbow Mode</button>
-        <button id="clear-button">Clear</button>
+    <div id="footer">
+        <a href="https://github.com/nickdavis71">
+            <img src="./img/github-mark.png" alt="Github Inverted Cat Logo">
+            nickdavis71
+        </a>
     </div>
 </body>
 </html>

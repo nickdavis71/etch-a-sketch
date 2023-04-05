@@ -3,14 +3,13 @@ const sliderContainer = document.querySelector('#slider-container');
 const gridSize = document.querySelector('#grid-size');
 const slider = document.querySelector('#myRange');
 const root = document.querySelector(':root');
-const blackButton = document.querySelector('#black-button')
-const rainbowButton = document.querySelector('#rainbow-button')
-const clearButton = document.querySelector('#clear-button')
+const blackButton = document.querySelector('#black-button');
+const rainbowButton = document.querySelector('#rainbow-button');
+const clearButton = document.querySelector('#clear-button');
 
+// Initializes default gird upon loading page.
 createGridSquares(16,16);
 equipEventListeners();
-
-clearButton.addEventListener('click', () => clearSketch());
 
 let rainbowButtonClicked = false;
 let blackButtonClicked = false;
@@ -25,6 +24,8 @@ rainbowButton.addEventListener('click', () => {
     blackButtonClicked = false;
 })
 
+clearButton.addEventListener('click', () => clearSketch());
+
 slider.addEventListener('click', () => {
     createGridSquares(getSliderValue(), getSliderValue());
     equipEventListeners();
@@ -36,10 +37,13 @@ function createGridSquares (rows, columns) {
         const gridSquares = document.createElement('div');
         gridContainer.appendChild(gridSquares);
     }
+    // Sets grid size variables needed for CSS Grid input
     root.style.setProperty('--rows', rows);
     root.style.setProperty('--columns', columns);
 }
 
+// Function only calls on the colorSquare function once the mousedown and
+// mouseover events are triggered. 
 function equipEventListeners () {
     const gridSquares = document.querySelectorAll('#grid-container div');
     gridSquares.forEach((square) => {
